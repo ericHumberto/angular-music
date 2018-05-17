@@ -22,7 +22,6 @@ export class MusicListComponent implements OnInit {
     this.musicService.getMusics(this.artist).subscribe(
       (data) => {
         this.musicList = data;
-        console.log(this.musicList);
       }
     );
 
@@ -62,15 +61,12 @@ export class MusicListComponent implements OnInit {
   }
 
   selectToRemove(music: IMusic) {
-    console.log(music);
-    console.log(this.musicSelectedToRemove);
     this.musicSelectedToRemove = music.id;
   }
 
   add() {
     this.musicList.forEach(music => {
       if (music.checked) {
-        console.log(music);
         this.musicPlayList.push(music);
         let indexToRemove = this.musicList.indexOf(this.musicList.find(item => item.id == music.id));
         this.musicList.splice(indexToRemove, 1);
@@ -79,9 +75,7 @@ export class MusicListComponent implements OnInit {
   }
 
   remove() {
-    console.log(this.musicSelectedToRemove);
     let indexToRemove = this.musicPlayList.indexOf(this.musicPlayList.find(item => item.id == this.musicSelectedToRemove));
-    console.log(indexToRemove);
     this.musicList.push(this.musicPlayList[indexToRemove]);
     this.musicPlayList.splice(indexToRemove, 1);
     this.musicSelectedToRemove = '';

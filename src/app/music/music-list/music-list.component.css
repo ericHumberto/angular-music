@@ -26,12 +26,18 @@ table, th, td {
 
 .table-left {
     width: 40%;
+    float: left;
 }
 
 .table-right {
     width: 40%;
+    float: left;
 }
 
 .buttons-middle > button {
     display: block;
+}
+
+.buttons-middle {
+    float: left;
 }
