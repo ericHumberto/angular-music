@@ -2,12 +2,12 @@
   <header class="header">
     <div class="input-left">
       <label>Music or artist:</label>
-      <input type="text" class="form-control" (input)="onSearchMusicArtistChange($event.target.value)" />
+      <input #music type="text" class="form-control" (keyup.enter)="onSearchMusicArtistChange(music.value)" />
     </div>
 
     <div class="input-right">
       <label>User:</label>
-      <input type="text" class="form-control" (input)="onSearchUserPlaylistChange($event.target.value)" />
+      <input #user type="text" class="form-control" (keyup.enter)="onSearchUserPlaylistChange(user.value)" />
     </div>
   </header>
 
