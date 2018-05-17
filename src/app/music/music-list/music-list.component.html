@@ -1,0 +1,59 @@
+<body>
+  <header class="header">
+    <div class="input-left">
+      <label>Music or artist:</label>
+      <!-- <input [(ngModel)]="artist" type="text" /> -->
+      <input [value]="artist" (input)="artist = $event.target.value">
+    </div>
+
+    <div class="input-right">
+      <label>User:</label>
+      <input [value]="user" (input)="user = $event.target.value">
+    </div>
+  </header>
+
+  <content class="contet-result">
+    <div class="table-left">
+      <table>
+        <thead>
+          <th>Music name</th>
+          <th>Artist name</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let music of musicList">
+            <td>{{music?.nome}}</td>
+            <td>{{music?.artista.nome}}</td>
+            <td (click)="selectToAdd(music)">
+              <input type="checkbox" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="buttons-middle">
+      <button (click)="add()">>></button>
+      <button (click)="remove()">
+        <<</button>
+    </div>
+
+    <div class="table-right">
+      <table>
+        <thead>
+          <th>
+            <div Music name</th>
+              <th>Artist name</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let music of musicPlayList">
+            <td>{{music?.nome}}</td>
+            <td>{{music?.artista.nome}}</td>
+            <td (click)="selectToRemove(music)">
+              <input type="radio" name="musicRadio" value="music.id" [checked]="idx === 0" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </content>
+</body>
