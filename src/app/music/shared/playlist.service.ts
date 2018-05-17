@@ -24,8 +24,6 @@ export class PlaylistService {
     url += playlistsId;
     url += "/musicas"
 
-    console.log(url);
-
     return this.http.post<IPlaylist>(url, musics);
   }
 
@@ -34,8 +32,6 @@ export class PlaylistService {
     url += playlistsId;
     url += "/musicas/";
     url += musicId;
-
-    console.log(url);
     
     return this.http.delete<IPlaylist>(url);
   }
