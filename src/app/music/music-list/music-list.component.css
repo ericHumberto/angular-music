@@ -21,8 +21,9 @@ table, th, td {
 
 .input-right {
     width: 40%;
-    float: left;
+    float: right;
 }
+
 
 .table-left {
     width: 40%;

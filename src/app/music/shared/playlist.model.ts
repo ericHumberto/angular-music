@@ -1,8 +1,8 @@
-import { IMusic } from "./music.model";
 import { IUser } from "./user.model";
+import { IPlaylistMusic } from "./playlistMusic.model";
 
 export interface IPlaylist {
     id: string;
-    playlistMusicas: IMusic[];
+    playlistMusicas: IPlaylistMusic[];
     usuario: IUser;
 }

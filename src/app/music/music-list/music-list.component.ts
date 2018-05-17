@@ -4,6 +4,7 @@ import { element } from 'protractor';
 import { MusicService } from '../shared/music.service';
 import { PlaylistService } from '../shared/playlist.service';
 import { IPlaylist } from '../shared/playlist.model';
+import { IPlaylistMusic } from '../shared/playlistMusic.model';
 
 @Component({
   selector: 'app-music-list',
@@ -13,8 +14,10 @@ import { IPlaylist } from '../shared/playlist.model';
 export class MusicListComponent implements OnInit {
   musicList: IMusic[];
   playList: IPlaylist;
+  musicArtistSearch: string = '';
+  userPlaylistSearch: string = '';
 
-  musicSelectedToRemove: string = '';
+  musicIdSelectedToRemove: string = '';
 
   constructor(private musicService: MusicService,
     private playlistService: PlaylistService) { }
@@ -23,15 +26,17 @@ export class MusicListComponent implements OnInit {
     this.musicList = [];
   }
 
-  onSearchMusicArtistChange(value: any) {
+  onSearchMusicArtistChange(value: string) {
+    this.musicArtistSearch = value;
     this.musicService.getMusics(value).subscribe(
       (data) => {
         this.musicList = data;
       }
     );
   }
-  
-  onSearchUserPlaylistChange(value: any) {
+
+  onSearchUserPlaylistChange(value: string) {
+    this.userPlaylistSearch = value;
     this.playlistService.getPlaylistsByUser(value).subscribe(
       (data) => {
         this.playList = data;
@@ -44,13 +49,26 @@ export class MusicListComponent implements OnInit {
     this.musicList[index].checked = !this.musicList[index].checked;
   }
 
-  selectToRemove(music: IMusic) {
-    this.musicSelectedToRemove = music.id;
+  selectToRemove(playlistMusic: IPlaylistMusic) {
+    this.musicIdSelectedToRemove = playlistMusic.musicaId;
   }
 
-  add() {
+  addToPlaylist() {
+    let musicsToAdd = this.musicList.filter(music => music.checked);
+
+    this.playlistService.addMusicsToPlaylist(this.playList.id, musicsToAdd).subscribe(
+      (data) => {
+        this.onSearchUserPlaylistChange(this.userPlaylistSearch);
+      }
+    );
   }
 
-  remove() {
+  removeFromPlaylist() {
+    this.playlistService.removeMusicToPlaylist(this.playList.id, this.musicIdSelectedToRemove).subscribe(
+      (data) => {
+        this.onSearchUserPlaylistChange(this.userPlaylistSearch);
+        this.userPlaylistSearch = '';
+      }
+    );
   }
 }

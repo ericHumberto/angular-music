@@ -31,17 +31,16 @@
     </div>
 
     <div class="buttons-middle">
-      <button (click)="add()">>></button>
-      <button (click)="remove()">
+      <button (click)="addToPlaylist()">>></button>
+      <button (click)="removeFromPlaylist()">
         <<</button>
     </div>
 
     <div class="table-right">
       <table>
         <thead>
-          <th>
-            <div Music name</th>
-              <th>Artist name</th>
+          <th>Music name</th>
+          <th>Artist name</th>
         </thead>
         <tbody>
           <tr *ngFor="let music of playList?.playlistMusicas">
