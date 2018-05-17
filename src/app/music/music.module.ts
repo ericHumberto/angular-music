@@ -5,6 +5,7 @@ import { MusicRoutingModule } from './music-routing.module';
 import { MusicListComponent } from './music-list/music-list.component';
 import { MusicService } from './shared/music.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { PlaylistService } from './shared/playlist.service';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   ],
   declarations: [MusicListComponent],
   providers: [MusicService,
+    PlaylistService,
     HttpClient]
 })
 export class MusicModule { }

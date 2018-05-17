@@ -9,6 +9,12 @@ export class MusicService {
   constructor(private http: HttpClient) { }
 
   getMusics(filtro: string): Observable<IMusic[]> {
-    return this.http.get<IMusic[]>("https://intense-ocean-93206.herokuapp.com/api/musicas/?filtro=1");
+    let url = "https://intense-ocean-93206.herokuapp.com/api/musicas/";
+    if(filtro) {
+      url += "?filtro=";
+      url += filtro;
+    }
+    
+    return this.http.get<IMusic[]>(url);
   }
 }

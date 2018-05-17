@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { IMusic } from '../shared/music.model';
 import { element } from 'protractor';
 import { MusicService } from '../shared/music.service';
+import { PlaylistService } from '../shared/playlist.service';
+import { IPlaylist } from '../shared/playlist.model';
 
 @Component({
   selector: 'app-music-list',
@@ -9,50 +11,32 @@ import { MusicService } from '../shared/music.service';
   styleUrls: ['./music-list.component.css']
 })
 export class MusicListComponent implements OnInit {
-
-  artist: string = '';
-  user: string = '';
   musicList: IMusic[];
-  musicPlayList: IMusic[];
+  playList: IPlaylist;
+
   musicSelectedToRemove: string = '';
 
-  constructor(private musicService: MusicService) { }
+  constructor(private musicService: MusicService,
+    private playlistService: PlaylistService) { }
 
   ngOnInit() {
-    this.musicService.getMusics(this.artist).subscribe(
+    this.musicList = [];
+  }
+
+  onSearchMusicArtistChange(value: any) {
+    this.musicService.getMusics(value).subscribe(
       (data) => {
         this.musicList = data;
       }
     );
-
-    // this.musicList = [
-    //   {
-    //     id: 1,
-    //     artistName: "Artista 1",
-    //     name: "Musica 1",
-    //     checked: false
-    //   },
-    //   {
-    //     id: 2,
-    //     artistName: "Artista 2",
-    //     name: "Musica 2",
-    //     checked: false
-    //   },
-    //   {
-    //     id: 3,
-    //     artistName: "Artista 3",
-    //     name: "Musica 3",
-    //     checked: false
-    //   },
-    //   {
-    //     id: 4,
-    //     artistName: "Artista 4",
-    //     name: "Musica 4",
-    //     checked: false
-    //   },
-    // ];
-
-    this.musicPlayList = [];
+  }
+  
+  onSearchUserPlaylistChange(value: any) {
+    this.playlistService.getPlaylistsByUser(value).subscribe(
+      (data) => {
+        this.playList = data;
+      }
+    );
   }
 
   selectToAdd(music: IMusic) {
@@ -65,19 +49,8 @@ export class MusicListComponent implements OnInit {
   }
 
   add() {
-    this.musicList.forEach(music => {
-      if (music.checked) {
-        this.musicPlayList.push(music);
-        let indexToRemove = this.musicList.indexOf(this.musicList.find(item => item.id == music.id));
-        this.musicList.splice(indexToRemove, 1);
-      }
-    });
   }
 
   remove() {
-    let indexToRemove = this.musicPlayList.indexOf(this.musicPlayList.find(item => item.id == this.musicSelectedToRemove));
-    this.musicList.push(this.musicPlayList[indexToRemove]);
-    this.musicPlayList.splice(indexToRemove, 1);
-    this.musicSelectedToRemove = '';
   }
 }

@@ -2,13 +2,12 @@
   <header class="header">
     <div class="input-left">
       <label>Music or artist:</label>
-      <!-- <input [(ngModel)]="artist" type="text" /> -->
-      <input [value]="artist" (input)="artist = $event.target.value">
+      <input type="text" class="form-control" (input)="onSearchMusicArtistChange($event.target.value)" />
     </div>
 
     <div class="input-right">
       <label>User:</label>
-      <input [value]="user" (input)="user = $event.target.value">
+      <input type="text" class="form-control" (input)="onSearchUserPlaylistChange($event.target.value)" />
     </div>
   </header>
 
@@ -45,9 +44,9 @@
               <th>Artist name</th>
         </thead>
         <tbody>
-          <tr *ngFor="let music of musicPlayList">
-            <td>{{music?.nome}}</td>
-            <td>{{music?.artista.nome}}</td>
+          <tr *ngFor="let music of playList?.playlistMusicas">
+            <td>{{music?.musica?.nome}}</td>
+            <td>{{music?.musica?.artista.nome}}</td>
             <td (click)="selectToRemove(music)">
               <input type="radio" name="musicRadio" value="music.id" [checked]="idx === 0" />
             </td>
